@@ -1,16 +1,21 @@
-<h1>Users info</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+            <h1>Users info</h1>
 
-<%= form_for(@user) do |f| %>
-  <div>Name
-	<%= f.text_field :name %>
-  </div>
-  <div>Image
-  	<%= f.attachment_field :profile_image %>
-  </div>
-
-<div>Introduction
-	< f.text/field :introduction %>
+            <%= form_for(@user) do |f| %>
+              <div>Name
+            	<%= f.text_field :name %>
+              </div>
+              <div>Image</div>
+              <div>
+              	<%= f.attachment_field :profile_image, placeholder: "プロフィール画面", class:"user-edit-form" %>
+              </div>
+              <div>Introduction
+            	<%= f.text_area :introduction %>
+              </div>
+              <%= f.submit "Update User", class: 'btn btn-default' %>
+            <% end %>
+        </div>
+    </div>
 </div>
-
-<%= f;submit "Update User" %>
-<% end %>

@@ -1,11 +1,95 @@
-<h1>Book detail</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-3">
+			<h2>User info</h2>
+			<div>
+				<%= attachment_image_tag @user, :profile_image, :fill, 120, 120, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'120x120' %>
+			</div>
+			<table class="table">
+				<tbody>
+					<tr></tr>
+					<tr>
+						<th>name</th>
+					    <th><%= @user.name %></th>
+					</tr>
+					<tr>
+						<th>introduction</th>
+					    <th><%= @user.introduction %></th>
+					</tr>
+				</tbody>
+			</table>
 
-<%= attachment_image_tag @book.user.image, :image %>
-<%= link_to user_path(user.id), @book.name %>
+		    <div class="user-edit">
+			    <%= link_to users_path, class: 'btn btn-default' do %>
+			      <span class="glyphicon glyphicon-wrench" aria-hidden="true">
+			      </span>
+			    <% end %>
+		    </div>
 
-<%= @book.title %>
-<%= @book.body %>
+		    <div>
+			    <h2>New book</h2>
+			    <%= form_for(@book, url: '/books') do |f| %>
+			      <div>Title</div>
+			      <%= f.text_area :title %>
+			      <div>Opinion</div>
+			      <%= f.text_area :body %>
+			      <%= f.submit 'Create Book', class: 'btn btn-default' %>
+			    <% end %>
+	        </div>
+	    </div>
 
-<% if @book.user == current_user %>
-  <%= link_to "destroy", books_path, method: :delete %>
-<%= end %>
+
+        <div class="col-xs-9">
+          <h2>Book detail</h2>
+          <table class="table">
+          	<% if @user.id == current_user.id %>
+	            <thead>
+		          <tr>
+			        <th colspan="5"></th>
+		          </tr>
+	            </thead>
+	            <tbody>
+		            <tr>
+			          <td>
+				        <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %></p>
+				        <p><%= link_to @user.name, book_path(@detail) %></p>
+			          </td>
+			          <td>
+				        <%= @detail.title %>
+			          </td>
+			          <td>
+				        <%= @detail.body %>
+			          </td>
+			          <td>
+			          	<%= link_to 'Edit', edit_book_path(@detail), class: 'btn btn-default' %>
+			          </td>
+			          <td>
+			          	<%= link_to 'Destroy',book_path(@detail), class: 'btn btn-default', method: :delete, "data-confirm" => "本当に削除しますか?" %>
+			          </td>
+		            </tr>
+	            </tbody>
+	        <% else %>
+	            <thead>
+		          <tr>
+		          	<th colspan="3"></th>
+		          </tr>
+	            </thead>
+	            <tbody>
+		            <tr>
+			          <td>
+				        <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %>    </p>
+				        <p><%= link_to @user.name, user_path(@user) %></p>
+			          </td>
+			          <td>
+				        <%= @detail.title %>
+			          </td>
+			          <td>
+				        <%= @detail.body %>
+			          </td>
+		            </tr>
+	            </tbody>
+	        <% end %>
+          </table>
+        </div>
+    </div>
+</div>
