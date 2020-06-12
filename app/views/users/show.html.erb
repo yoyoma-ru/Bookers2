@@ -1,9 +1,12 @@
 <div class="container">
 	<div class="row">
+		<% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
 		<div class="col-xs-3">
 			<h2>User info</h2>
 			<div>
-				<%= attachment_image_tag @user, :profile_image, :fill, 120, 120, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'120x120' %>
+				<%= attachment_image_tag @user, :profile_image, :fill, 120, 120, format: 'jpeg', class: "img-squire pull-left profile-img", fallback: "no_image.jpg", size:'120x120' %>
 			</div>
 			<table class="table">
 				<tbody>
@@ -20,7 +23,7 @@
 			</table>
 
 		    <div class="user-edit">
-			    <%=link_to edit_user_path(@user), class: 'btn btn-default' do %>
+			    <%=link_to edit_user_path(@user), class: 'btn btn-default btn-xs btn-block' do %>
 			      <span class="glyphicon glyphicon-wrench" aria-hidden="true">
 			      </span>
 			    <% end %>
@@ -33,7 +36,7 @@
 			      <%= f.text_area :title %>
 			      <div>Opinion</div>
 			      <%= f.text_area :body %>
-			      <%= f.submit 'Create Book', class: 'btn btn-default' %>
+			      <%= f.submit 'Create Book', class: 'btn btn-default btn-xs btn-block btn-primary' %>
 			    <% end %>
 	        </div>
 	    </div>
@@ -53,7 +56,7 @@
 		      <% @books.each do |book| %>
 		        <tr>
 			      <th>
-				    <%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %>
+				    <%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-squire pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %>
 			      </th>
 			      <td>
 				    <%= link_to book.title, book_path(book.id) %>

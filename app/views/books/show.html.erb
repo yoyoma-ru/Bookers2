@@ -1,9 +1,12 @@
 <div class="container">
 	<div class="row">
+		<% if flash[:success] %>
+            <p><%= flash[:success] %></p>
+        <% end %>
 		<div class="col-xs-3">
 			<h2>User info</h2>
 			<div>
-				<%= attachment_image_tag @user, :profile_image, :fill, 120, 120, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'120x120' %>
+				<%= attachment_image_tag @user, :profile_image, :fill, 120, 120, format: 'jpeg', class: "img-squire pull-left profile-img", fallback: "no_image.jpg", size:'120x120' %>
 			</div>
 			<table class="table">
 				<tbody>
@@ -20,9 +23,16 @@
 			</table>
 
 		    <div class="user-edit">
-			    <%= link_to users_path, class: 'btn btn-default' do %>
-			      <span class="glyphicon glyphicon-wrench" aria-hidden="true">
-			      </span>
+		    	<% if @user == current_user %>
+		    	    <%= link_to edit_user_path(current_user), class: 'btn btn-default btn-xs btn-block' do %>
+			          <span class="glyphicon glyphicon-wrench" aria-hidden="true">
+			          </span>
+			        <% end %>
+			    <% else %>
+			        <%= link_to user_path(current_user), class: 'btn btn-default btn-xs btn-block' do %>
+			          <span class="glyphicon glyphicon-wrench" aria-hidden="true">
+			          </span>
+			        <% end %>
 			    <% end %>
 		    </div>
 
@@ -33,7 +43,7 @@
 			      <%= f.text_area :title %>
 			      <div>Opinion</div>
 			      <%= f.text_area :body %>
-			      <%= f.submit 'Create Book', class: 'btn btn-default' %>
+			      <%= f.submit 'Create Book', class: 'btn btn-default btn-xs btn-block btn-primary' %>
 			    <% end %>
 	        </div>
 	    </div>
@@ -51,8 +61,10 @@
 	            <tbody>
 		            <tr>
 			          <td>
-				        <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %></p>
-				        <p><%= link_to @user.name, book_path(@detail) %></p>
+				        <%= link_to user_path(@detail.user.id) do %>
+				          <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-squire pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %><br><br><br>
+				          <%= @user.name %>
+				        <% end %>
 			          </td>
 			          <td>
 				        <%= @detail.title %>
@@ -61,10 +73,10 @@
 				        <%= @detail.body %>
 			          </td>
 			          <td>
-			          	<%= link_to 'Edit', edit_book_path(@detail), class: 'btn btn-default' %>
+			          	<%= link_to 'Edit', edit_book_path(@detail), class: 'btn btn-default btn-success' %>
 			          </td>
 			          <td>
-			          	<%= link_to 'Destroy',book_path(@detail), class: 'btn btn-default', method: :delete, "data-confirm" => "本当に削除しますか?" %>
+			          	<%= link_to 'Destroy',book_path(@detail), class: 'btn btn-default btn-danger', method: :delete, "data-confirm" => "本当に削除しますか?" %>
 			          </td>
 		            </tr>
 	            </tbody>
@@ -77,8 +89,10 @@
 	            <tbody>
 		            <tr>
 			          <td>
-				        <p><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %>    </p>
-				        <p><%= link_to @user.name, user_path(@user) %></p>
+				        <%= link_to user_path(@user) do %>
+				          <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-squire pull-left profile-img", fallback: "no_image.jpg", size:'60x60' %><br><br><br>
+				          <%= @user.name %>
+				        <% end %>
 			          </td>
 			          <td>
 				        <%= @detail.title %>

@@ -1,7 +1,18 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-            <h1>Users info</h1>
+            <h1>User info</h1>
+            <% if @user.errors.any? %>
+              <div id= "error_explanation" class="alert alert-warning">
+                <h3><%= pluralize(@user.errors.count, "error") %> prohibited this product from being saved:
+                </h3>
+                <ul>
+                  <% @user.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <%= form_for(@user) do |f| %>
               <div>Name
