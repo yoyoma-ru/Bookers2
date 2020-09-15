@@ -19,8 +19,18 @@
 						<th>introduction</th>
 					    <th><%= @user.introduction %></th>
 					</tr>
+					<tr>
+						<th>follows</th>
+						<th><%= @user.followings.count %></th>
+					</tr>
+					<tr>
+						<th>followers</th>
+						<th><%= @user.followers.count %></th>
+					<tr>
 				</tbody>
 			</table>
+
+			<%= render 'relationships/follow_button', user: @user %>
 
 		    <div class="user-edit">
 			    <%=link_to edit_user_path(@user), class: 'btn btn-default btn-xs btn-block' do %>
